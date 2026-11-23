@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NovaShop: catálogo virtual de una miscelánea de barrio.">
+  <title>NovaShop · Catálogo virtual</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Parte 05: Estructura y layout principal (M4) -->
+  <header class="encabezado">
+    <div class="encabezado__contenido">
+      <a class="marca" href="#catalogo" data-vista="catalogo">Nova<span>Shop</span></a>
+      <label class="buscador" for="campo-busqueda">
+        <span class="oculto">Buscar artículos por nombre</span>
+        <input id="campo-busqueda" type="search" placeholder="Buscar por nombre (ej. cuaderno)" autocomplete="off">
+      </label>
+      <nav class="cuenta" id="zona-cuenta" aria-live="polite"></nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Vista: catálogo -->
+    <section id="vista-catalogo" class="vista">
+      <aside class="filtros" aria-label="Búsqueda avanzada">
+        <h2>Búsqueda avanzada</h2>
+        <form id="form-filtros" novalidate>
+          <label for="filtro-categoria">Categoría</label>
+          <select id="filtro-categoria">
+            <option value="">Todas las categorías</option>
+          </select>
+
+          <fieldset>
+            <legend>Rango de precio (COP)</legend>
+            <div class="rango">
+              <input id="filtro-min" type="number" min="0" step="500" placeholder="Mínimo" aria-label="Precio mínimo">
+              <input id="filtro-max" type="number" min="0" step="500" placeholder="Máximo" aria-label="Precio máximo">
+            </div>
+          </fieldset>
+
+          <label class="casilla"><input id="filtro-stock" type="checkbox"> Solo artículos con stock</label>
+
+          <label for="orden">Ordenar por</label>
+          <select id="orden">
+            <option value="">Recomendados</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="nombre">Nombre (A-Z)</option>
+          </select>
+
+          <p id="error-filtros" class="mensaje mensaje--error" role="alert" hidden></p>
+          <button type="reset" class="boton boton--secundario">Limpiar filtros</button>
+        </form>
+      </aside>
+
+      <div class="resultados">
+        <p id="resumen" class="resumen" aria-live="polite"></p>
+        <div id="cuadricula" class="cuadricula"></div>
+      </div>
+    </section>
+
+    <!-- Vista: cuenta (M1) -->
+    <section id="vista-cuenta" class="vista" hidden>
+      <div class="panel-cuenta">
+        <div class="pestanas" role="tablist">
+          <button id="tab-ingresar" class="pestana activa" role="tab" aria-selected="true" data-panel="panel-ingresar">Ingresar</button>
+          <button id="tab-registro" class="pestana" role="tab" aria-selected="false" data-panel="panel-registro">Crear cuenta</button>
+        </div>
+
+        <form id="panel-ingresar" class="formulario" novalidate>
+          <label for="login-correo">Correo electrónico</label>
+          <input id="login-correo" type="email" autocomplete="email" required>
+          <label for="login-clave">Contraseña</label>
+          <input id="login-clave" type="password" autocomplete="current-password" required>
+          <p id="msg-ingresar" class="mensaje" role="alert" hidden></p>
+          <button type="submit" class="boton">Ingresar</button>
+        </form>
+
+        <form id="panel-registro" class="formulario" novalidate hidden>
+          <label for="reg-nombre">Nombre completo</label>
+          <input id="reg-nombre" type="text" autocomplete="name" required>
+          <label for="reg-correo">Correo electrónico</label>
+          <input id="reg-correo" type="email" autocomplete="email" required>
+          <label for="reg-clave">Contraseña</label>
+          <input id="reg-clave" type="password" autocomplete="new-password" required>
+          <small>Mínimo 8 caracteres, con al menos una letra y un número.</small>
+          <label for="reg-confirmacion">Confirmar contraseña</label>
+          <input id="reg-confirmacion" type="password" autocomplete="new-password" required>
+          <div id="msg-registro" class="mensaje" role="alert" hidden></div>
+          <button type="submit" class="boton">Crear cuenta</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Parte 07: Modal de detalle -->
+  <div id="modal-detalle" class="modal" hidden>
+    <div class="modal__caja" role="dialog" aria-modal="true" aria-labelledby="detalle-titulo">
+      <button class="modal__cerrar" aria-label="Cerrar detalle">&times;</button>
+      <div id="detalle-contenido" class="detalle"></div>
+    </div>
+  </div>
+
+  <footer class="pie">
+    <p>NovaShop · Prototipo académico del equipo Elevate Labs (Subgrupo 4) · Politécnico Grancolombiano · 2026</p>
+  </footer>
+
+  <script src="js/datos/articulos.js"></script>
+  <script src="js/utilidades.js"></script>
+  <script src="js/cuentas/sha256.js"></script>
+  <script src="js/cuentas/registro.js"></script>
+  <script src="js/cuentas/sesion.js"></script>
+  <script src="js/busqueda/motor-texto.js"></script>
+  <script src="js/busqueda/filtro-avanzado.js"></script>
+  <script src="js/catalogo/cuadricula.js"></script>
+  <script src="js/catalogo/modal-detalle.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
