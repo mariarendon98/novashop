@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaShop · Pruebas unitarias</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 24px; color: #222; }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    #resumen { font-weight: bold; margin: 12px 0; }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; }
+    th { background: #f3f3f3; }
+    .ok { color: #1b7f3b; font-weight: bold; }
+    .falla { color: #b3261e; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>NovaShop · Pruebas unitarias</h1>
+  <p>Responsable: CCGA (Quality &amp; Testing Manager). Abre este archivo en Chrome, Edge o Firefox.</p>
+  <div id="resumen">Ejecutando…</div>
+  <table>
+    <thead><tr><th>ID</th><th>Módulo</th><th>Caso de prueba</th><th>Resultado</th><th>Detalle</th></tr></thead>
+    <tbody id="tabla"></tbody>
+  </table>
+
+  <!-- Código bajo prueba -->
+  <script src="../js/utilidades.js"></script>
+  <script src="../js/cuentas/sha256.js"></script>
+  <script src="../js/cuentas/registro.js"></script>
+  <script src="../js/cuentas/sesion.js"></script>
+  <script src="../js/busqueda/motor-texto.js"></script>
+  <script src="../js/busqueda/filtro-avanzado.js"></script>
+  <script src="../js/datos/productos.js"></script>
+
+  <!-- Pruebas -->
+  <script src="pruebas.js"></script>
+  <script>
+    (function () {
+      var ns = window.NovaShop || {};
+      var tabla = document.getElementById('tabla');
+      var resumen = document.getElementById('resumen');
+      if (typeof ns.ejecutarPruebas !== 'function') {
+        resumen.textContent = 'No se pudo cargar pruebas.js';
+        return;
+      }
+      var r = ns.ejecutarPruebas();
+      var pasaron = r.filter(function (x) { return x.ok; }).length;
+      r.forEach(function (x) {
+        var fila = document.createElement('tr');
+        [x.id, x.modulo, x.descripcion].forEach(function (t) {
+          var td = document.createElement('td'); td.textContent = t; fila.appendChild(td);
+        });
+        var res = document.createElement('td');
+        res.textContent = x.ok ? 'Pasó' : 'Falló';
+        res.className = x.ok ? 'ok' : 'falla';
+        fila.appendChild(res);
+        var det = document.createElement('td'); det.textContent = x.detalle; fila.appendChild(det);
+        tabla.appendChild(fila);
+      });
+      resumen.textContent = pasaron + ' de ' + r.length + ' pruebas pasaron.';
+      resumen.className = pasaron === r.length ? 'ok' : 'falla';
+    })();
+  </script>
+</body>
+</html>
