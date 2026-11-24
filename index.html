@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaShop - Catálogo de Papelería y Oficina (M4)</title>
+  <title>NovaShop - Catálogo de Papelería y Oficina (Ciclo 1)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,7 +12,7 @@
 
   <!-- Header / Barra de navegación -->
   <header class="bg-blue-800 text-white shadow-md sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <i class="fa-solid fa-pencil text-2xl text-amber-400"></i>
         <div>
@@ -20,60 +20,134 @@
           <span class="text-xs text-blue-200 block -mt-1">Papelería y Artículos de Oficina</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 text-sm">
-        <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-xs font-medium border border-blue-700">
-          <i class="fa-solid fa-code-branch mr-1 text-emerald-400"></i> Rama: feature/m4-catalogo
-        </span>
-        <div class="text-xs text-blue-100 hidden sm:flex items-center bg-blue-950/40 px-2.5 py-1 rounded-md">
-          <i class="fa-regular fa-user mr-1.5 text-blue-300"></i> Juan Diego (Development Manager)
+
+      <!-- Barra central de búsqueda rápida (M2) -->
+      <div class="hidden md:flex flex-1 max-w-md mx-6">
+        <div class="relative w-full">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </span>
+          <input type="text" id="searchInput" placeholder="Buscar por nombre o descripción (ej. lápiz, resma, tijeras)..."
+            class="w-full pl-9 pr-3 py-1.5 text-xs text-slate-800 bg-white rounded-lg border-0 shadow-inner focus:ring-2 focus:ring-amber-400 outline-none">
+        </div>
+      </div>
+
+      <!-- Área de Cuentas / Sesión (M1) -->
+      <div class="flex items-center space-x-3 text-sm">
+        <button id="authBtn" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold px-3 py-1.5 rounded-lg text-xs transition shadow-sm flex items-center">
+          <i class="fa-regular fa-user mr-1.5"></i> Iniciar Sesión / Registro
+        </button>
+
+        <div id="userGreeting" class="hidden items-center space-x-2 bg-blue-900/80 px-3 py-1 rounded-lg border border-blue-700">
+          <span class="text-xs text-blue-200"><i class="fa-solid fa-circle-user mr-1 text-emerald-400"></i> Hola, <b id="userNameSpan" class="text-white">Usuario</b></span>
+          <button id="logoutBtn" class="text-[11px] bg-red-600/80 hover:bg-red-600 text-white px-2 py-0.5 rounded transition">
+            Salir
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Búsqueda móvil -->
+    <div class="md:hidden px-4 pb-2.5">
+      <input type="text" oninput="document.getElementById('searchInput').value = this.value; document.getElementById('searchInput').dispatchEvent(new Event('input'))" placeholder="Buscar producto..."
+        class="w-full px-3 py-1.5 text-xs text-slate-800 bg-white rounded-lg border-0 outline-none shadow-inner">
+    </div>
   </header>
 
-  <!-- Banner Informativo del Catálogo de Papelería -->
-  <section class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-7 px-4 shadow-inner">
-    <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-2xl md:text-3xl font-extrabold mb-1.5">Catálogo Oficial de Papelería</h1>
-      <p class="text-blue-200 text-xs md:text-sm max-w-2xl mx-auto">
-        20 artículos escolares y de oficina organizados en 5 categorías esenciales. Haz clic en cualquier artículo para ver sus especificaciones y stock en tiempo real.
-      </p>
+  <!-- Banner Informativo -->
+  <section class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+      <div>
+        <h1 class="text-xl md:text-2xl font-extrabold mb-1">Catálogo Oficial de Papelería</h1>
+        <p class="text-blue-200 text-xs max-w-xl">
+          20 artículos escolares y de oficina organizados en 5 categorías esenciales. Explora, filtra por precio y busca en tiempo real.
+        </p>
+      </div>
+      <div class="flex items-center space-x-2 text-xs">
+        <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded border border-emerald-400/30">
+          <i class="fa-solid fa-check-double mr-1"></i> 29/29 Pruebas Pasadas
+        </span>
+        <span class="bg-blue-950/60 text-blue-200 px-2.5 py-1 rounded border border-blue-700">
+          Ciclo 1: Elevate Labs
+        </span>
+      </div>
     </div>
   </section>
 
-  <!-- Contenedor Principal del Catálogo (Módulo M4) -->
-  <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
-    
-    <!-- Barra de control: Conteo y Filtro por Categoría -->
-    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-      <div class="text-sm font-semibold text-slate-700 flex items-center">
-        <i class="fa-solid fa-boxes-stacked mr-2 text-blue-600"></i>
-        Mostrando <span id="productCount" class="text-blue-800 font-bold mx-1.5 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">20</span> artículos disponibles
-      </div>
-      <div class="flex items-center space-x-2 w-full sm:w-auto">
-        <label for="categoryFilter" class="text-xs font-medium text-slate-500 whitespace-nowrap">Filtrar categoría:</label>
-        <select id="categoryFilter" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto font-medium">
-          <option value="ALL">Todas las categorías (5)</option>
-          <option value="Cuadernos y Papelería">Cuadernos y Papelería</option>
-          <option value="Escritura y Corrección">Escritura y Corrección</option>
-          <option value="Útiles y Manualidades">Útiles y Manualidades</option>
-          <option value="Artículos de Oficina">Artículos de Oficina</option>
-          <option value="Geometría y Medición">Geometría y Medición</option>
-        </select>
+  <!-- Contenedor Principal -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- Panel de Filtros Multicriterio (M3: RF05 y RF11) -->
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-6">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        
+        <!-- Fila 1: Contador y Filtro por Categoría -->
+        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+          <div class="text-xs font-semibold text-slate-700 flex items-center bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
+            <i class="fa-solid fa-boxes-stacked mr-1.5 text-blue-600"></i>
+            Mostrando <span id="productCount" class="text-blue-800 font-bold mx-1">20</span> productos
+          </div>
+
+          <div class="flex items-center space-x-1.5">
+            <label for="categoryFilter" class="text-xs text-slate-500 font-medium">Categoría:</label>
+            <select id="categoryFilter" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg p-1.5 font-medium focus:ring-blue-500">
+              <option value="ALL">Todas las categorías (5)</option>
+              <option value="Cuadernos y Papelería">Cuadernos y Papelería</option>
+              <option value="Escritura y Corrección">Escritura y Corrección</option>
+              <option value="Útiles y Manualidades">Útiles y Manualidades</option>
+              <option value="Artículos de Oficina">Artículos de Oficina</option>
+              <option value="Geometría y Medición">Geometría y Medición</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fila 2: Rangos de Precio y Stock (M3) -->
+        <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto text-xs">
+          <div class="flex items-center space-x-1">
+            <span class="text-slate-400 font-medium">Precio ($):</span>
+            <input type="number" id="minPriceInput" placeholder="Mín" class="w-16 p-1.5 bg-slate-50 border border-slate-300 rounded text-slate-700 outline-none">
+            <span class="text-slate-400">-</span>
+            <input type="number" id="maxPriceInput" placeholder="Máx" class="w-20 p-1.5 bg-slate-50 border border-slate-300 rounded text-slate-700 outline-none">
+          </div>
+
+          <label class="flex items-center space-x-1 text-slate-600 cursor-pointer ml-1">
+            <input type="checkbox" id="inStockCheckbox" class="rounded text-blue-600">
+            <span>Solo en stock</span>
+          </label>
+
+          <!-- Ordenamiento (M3: RF11) -->
+          <div class="flex items-center space-x-1 ml-1">
+            <select id="sortSelect" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg p-1.5 font-medium">
+              <option value="">Ordenar por...</option>
+              <option value="nombre">Nombre (A - Z)</option>
+              <option value="precio-asc">Precio: Menor a Mayor</option>
+              <option value="precio-desc">Precio: Mayor a Menor</option>
+            </select>
+          </div>
+
+          <!-- Botón Limpiar Filtros -->
+          <button id="clearFiltersBtn" class="text-xs text-slate-500 hover:text-red-600 font-medium px-2 py-1 bg-slate-100 hover:bg-red-50 rounded transition ml-1">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Limpiar
+          </button>
+
+          <span id="activeFiltersBadge" class="hidden bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+            0 activos
+          </span>
+        </div>
       </div>
     </div>
 
-    <!-- Cuadrícula de 20 Artículos de Papelería (Grid Responsivo RF06) -->
+    <!-- Cuadrícula de 20 Artículos de Papelería (Grid Responsivo M4) -->
     <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Los 20 artículos se renderizan desde js/catalogo/render.js -->
+      <!-- Los 20 artículos se renderizan dinámicamente desde js/catalogo/render.js -->
     </div>
 
   </main>
 
-  <!-- Modal de Detalle Ampliado del Artículo (RF07) -->
-  <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 transform transition-all">
-      <div class="relative bg-slate-100 p-6 flex justify-center items-center border-b border-slate-200">
+  <!-- Modal Detallado del Producto (M4) -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 transform transition-all">
+      <div class="bg-slate-100 p-6 flex justify-center items-center relative border-b border-slate-200">
         <img id="modalImg" src="" alt="" class="h-48 object-contain drop-shadow-md">
         <button id="closeModalBtn" class="absolute top-3 right-3 text-slate-400 hover:text-slate-700 bg-white/80 hover:bg-white rounded-full p-2 transition shadow-sm">
           <i class="fa-solid fa-xmark text-lg"></i>
@@ -95,7 +169,7 @@
         </div>
 
         <p id="modalDesc" class="text-xs md:text-sm text-slate-600 mb-4 leading-relaxed">
-          Descripción completa del artículo y características de presentación.
+          Descripción completa del artículo.
         </p>
 
         <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs text-slate-600 mb-5">
@@ -115,19 +189,101 @@
     </div>
   </div>
 
+  <!-- Modal de Autenticación / Login y Registro (M1) -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl border border-slate-200">
+      
+      <!-- Encabezado del Modal -->
+      <div class="bg-blue-800 text-white p-4 flex justify-between items-center">
+        <h3 class="text-sm font-bold flex items-center">
+          <i class="fa-solid fa-user-lock mr-2 text-amber-400"></i> Portal de Usuarios NovaShop
+        </h3>
+        <button id="closeAuthModalBtn" class="text-blue-200 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Pestañas (Tabs) -->
+      <div class="flex border-b border-slate-200 text-xs font-semibold">
+        <button id="tabLogin" class="flex-1 py-2.5 text-center border-b-2 border-blue-600 text-blue-600 transition">
+          Iniciar Sesión
+        </button>
+        <button id="tabRegister" class="flex-1 py-2.5 text-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- Mensaje de alerta -->
+      <div class="p-4 pb-0">
+        <div id="authAlert" class="hidden"></div>
+      </div>
+
+      <!-- Formulario de Iniciar Sesión (RF02) -->
+      <form id="formLogin" class="p-4 space-y-3">
+        <div>
+          <label class="block text-xs font-medium text-slate-600 mb-1">Correo Electrónico:</label>
+          <input type="email" id="loginEmail" required placeholder="ejemplo@correo.com"
+            class="w-full text-xs p-2.5 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-600 mb-1">Contraseña:</label>
+          <input type="password" id="loginPassword" required placeholder="********"
+            class="w-full text-xs p-2.5 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 rounded-lg text-xs transition shadow-sm mt-2">
+          Entrar a NovaShop
+        </button>
+      </form>
+
+      <!-- Formulario de Registro (RF01) -->
+      <form id="formRegister" class="p-4 space-y-2.5 hidden">
+        <div>
+          <label class="block text-[11px] font-medium text-slate-600 mb-0.5">Nombre Completo:</label>
+          <input type="text" id="regNombre" required placeholder="Mínimo 3 letras"
+            class="w-full text-xs p-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-[11px] font-medium text-slate-600 mb-0.5">Correo Electrónico:</label>
+          <input type="email" id="regEmail" required placeholder="nombre@correo.com"
+            class="w-full text-xs p-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-[11px] font-medium text-slate-600 mb-0.5">Contraseña (8+ chars con letra y número):</label>
+          <input type="password" id="regPassword" required placeholder="Ej: Nova2026"
+            class="w-full text-xs p-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-[11px] font-medium text-slate-600 mb-0.5">Confirmar Contraseña:</label>
+          <input type="password" id="regConfirm" required placeholder="Repite la contraseña"
+            class="w-full text-xs p-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-2 rounded-lg text-xs transition shadow-sm mt-2">
+          Crear Cuenta
+        </button>
+      </form>
+
+    </div>
+  </div>
+
   <!-- Footer Institucional -->
-  <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+  <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left">
       <div>
         <span class="font-bold text-slate-200">NovaShop Papelería</span> · Subgrupo 4 (Elevate Labs) · Politécnico Grancolombiano
       </div>
       <div>
-        Módulo M4 liderado por: <span class="text-blue-400 font-semibold">Juan Diego Pinzón Castillo (Development Manager)</span>
+        Integración Ciclo 1: <span class="text-blue-400 font-semibold">Juan Diego Pinzón Castillo (Development Manager)</span>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts modulares cargados en orden de dependencia -->
+  <!-- Scripts modulares cargados en orden estricto de dependencias -->
+  <script src="js/utilidades.js"></script>
+  <script src="js/cuentas/sha256.js"></script>
+  <script src="js/cuentas/registro.js"></script>
+  <script src="js/cuentas/sesion.js"></script>
+  <script src="js/busqueda/motor-texto.js"></script>
+  <script src="js/busqueda/filtro-avanzado.js"></script>
   <script src="js/datos/productos.js"></script>
   <script src="js/catalogo/render.js"></script>
   <script src="js/catalogo/modal.js"></script>
